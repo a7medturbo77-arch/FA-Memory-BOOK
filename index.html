@@ -6,7 +6,7 @@
 <title>Our Memory Book</title>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&display=swap" rel="stylesheet">
 <style>
-:root{--pw:180px;--ink:#14203d;--gold:#c9a24b;--navy:#101d42;--paper:#ffffff}
+:root{--pw:180px;--ink:#000;--gold:#c9a24b;--navy:#101d42;--paper:#ffffff}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{height:100%;margin:0;overflow:hidden;background:radial-gradient(ellipse at center,#16254a 0%,#060a16 88%);color:var(--ink);font-family:'Cormorant Garamond','IM Fell English',Georgia,serif;font-weight:500}
 body{padding:env(safe-area-inset-top,0px) 0 env(safe-area-inset-bottom,0px)}
@@ -17,34 +17,33 @@ body{padding:env(safe-area-inset-top,0px) 0 env(safe-area-inset-bottom,0px)}
 .leaf.nt{transition:none}
 /* PAGES: white */
 .face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;overflow:hidden;
-background:linear-gradient(90deg,rgba(0,0,0,.14),rgba(0,0,0,0) 9%),radial-gradient(circle at 30% 20%,#ffffff,#fcfcfc 70%,#f1f1f1);
+background:linear-gradient(90deg,rgba(0,0,0,.14),rgba(0,0,0,0) 9%),#fff;
 box-shadow:inset -1px 0 0 rgba(0,0,0,.12)}
 .front{border-radius:0 5px 5px 0}
-.back{transform:rotateY(180deg);border-radius:5px 0 0 5px;background:linear-gradient(270deg,rgba(0,0,0,.14),rgba(0,0,0,0) 9%),radial-gradient(circle at 70% 20%,#ffffff,#fcfcfc 70%,#f1f1f1)}
+.back{transform:rotateY(180deg);border-radius:5px 0 0 5px;background:linear-gradient(270deg,rgba(0,0,0,.14),rgba(0,0,0,0) 9%),#fff}
 .shade{position:absolute;inset:0;background:linear-gradient(90deg,#05070f,rgba(5,7,15,.2));opacity:0;pointer-events:none;transition:opacity .5s}
 /* COVER: your image (upload cover.jpg next to index.html) */
 .face.cover{background:url(cover.jpg) center/100% 100% no-repeat,#0e1a3a;border-radius:3px 9px 9px 3px;box-shadow:0 0 0 1px #050a1c}
 /* INSIDE OF THE COVER: navy leather with gold frame, no diagonal lines */
 .face.endp{background:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2'/><feColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .22 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>"),linear-gradient(270deg,rgba(0,0,0,.4),rgba(0,0,0,0) 12%),radial-gradient(circle at 60% 30%,#16295a,#0b1634)}
-.frame{position:absolute;inset:5.5% 6%;border:1.5px solid var(--gold);outline:1px solid var(--gold);outline-offset:-6px;opacity:.9}
 .nn{position:absolute;top:1.6%;font-style:italic;font-weight:600;font-size:calc(var(--pw)*.058);color:var(--gold)}
 .nn1{left:4%}
 .nn2{right:4%}
 /* FIRST PAGE */
 .qt{position:absolute;inset:0;color:var(--ink)}
 .qt .q{position:absolute;bottom:56%;left:12%;right:12%;text-align:center;font-style:italic;font-weight:600;font-size:calc(var(--pw)*.088);line-height:1.35}
-.qt .o{position:absolute;top:58%;width:100%;text-align:center;font-size:calc(var(--pw)*.2);line-height:1;color:var(--gold);transform:translateY(-50%)}
+.qt .o{position:absolute;top:58%;width:100%;text-align:center;font-size:calc(var(--pw)*.2);line-height:1;color:#000;transform:translateY(-50%)}
 .qt .s{position:absolute;bottom:3.5%;right:4.5%;text-align:right;font-style:italic;font-weight:600;font-size:calc(var(--pw)*.055);line-height:1.2}
 .ph{position:absolute;left:8%;right:8%;top:8%;bottom:8%;padding:calc(var(--pw)*.02);background:#fff;box-shadow:0 2px 6px rgba(0,0,0,.3);outline:1px solid rgba(201,162,75,.85);outline-offset:3px}
 .ph img{width:100%;height:100%;object-fit:cover;display:block}
-.pn{position:absolute;bottom:2.4%;width:100%;text-align:center;font-style:italic;font-weight:600;font-size:calc(var(--pw)*.06);color:#8a6d2a}
+.pn{position:absolute;bottom:2.4%;width:100%;text-align:center;font-style:italic;font-weight:600;font-size:calc(var(--pw)*.06);color:#000}
 .plus{position:absolute;left:50%;top:50%;width:46%;aspect-ratio:1;transform:translate(-50%,-55%);background:none;border:0;padding:0;cursor:pointer;color:var(--ink)}
 .plus svg{width:100%;height:100%;overflow:visible}
 .plus path{fill:none;stroke:currentColor;stroke-width:3;stroke-linecap:round;stroke-dasharray:100;stroke-dashoffset:100;animation:dr 2.2s .4s forwards ease}
 .plus path+path{animation-delay:1.2s}
 @keyframes dr{to{stroke-dashoffset:0}}
-.hint{position:absolute;top:70%;width:100%;text-align:center;font-style:italic;font-weight:600;font-size:calc(var(--pw)*.07);color:#8a6d2a}
-.edit{position:absolute;bottom:3%;right:7%;background:none;border:0;border-bottom:1px solid #8a6d2a;font:italic 600 calc(var(--pw)*.07) 'Cormorant Garamond',Georgia,serif;color:#8a6d2a;padding:2px 0;cursor:pointer}
+.hint{position:absolute;top:70%;width:100%;text-align:center;font-style:italic;font-weight:600;font-size:calc(var(--pw)*.07);color:#000}
+.edit{position:absolute;bottom:3%;right:7%;background:none;border:0;border-bottom:1px solid #000;font:italic 600 calc(var(--pw)*.07) 'Cormorant Garamond',Georgia,serif;color:#000;padding:2px 0;cursor:pointer}
 .L .edit{right:auto;left:7%}
 #tip{position:fixed;bottom:calc(env(safe-area-inset-bottom,0px) + 4vh);width:100%;text-align:center;color:var(--gold);font-style:italic;font-weight:600;font-size:18px;letter-spacing:.08em;opacity:.9;transition:opacity .5s;pointer-events:none}
 #tip.h{opacity:0}
@@ -152,7 +151,7 @@ function buildPages(){
 }
 function html(p){
   if(p==='cover')return '';
-  if(p==='inside')return '<div class="frame"></div><div class="nn nn1">18</div><div class="nn nn2">20</div>';
+  if(p==='inside')return '<div class="nn nn1">18</div><div class="nn nn2">20</div>';
   if(p==='quote')return '<div class="qt"><div class="q">“For The Love That Moves The Sun And The Other Stars”</div><div class="o">❦</div><div class="s">Your beloved,<br>Ahmed</div></div>';
   if(p==='plus')return '<button class="plus" aria-label="Add photos"><svg viewBox="0 0 100 100"><path pathLength="100" d="M50 10C49 30 51 70 50 90"/><path pathLength="100" d="M10 51C30 49 70 52 90 50"/></svg></button><div class="hint">add a memory</div><button class="edit">edit</button>';
   if(p&&p.s)return '<div class="ph"><img alt="" src="'+p.s+'"></div><div class="pn">— '+p.n+' —</div>';
