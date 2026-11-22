@@ -13,7 +13,7 @@
 html,body{color-scheme:light only;height:100%;margin:0;overflow:hidden;background:radial-gradient(ellipse at center,#16254a 0%,#060a16 88%);color:var(--ink);font-family:'Cormorant Garamond','IM Fell English',Georgia,serif;font-weight:500}
 body{padding:env(safe-area-inset-top,0px) 0 env(safe-area-inset-bottom,0px)}
 #stage{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;touch-action:none;user-select:none;-webkit-user-select:none}
-#book{position:relative;width:calc(var(--pw)*2);height:calc(var(--pw)*4/3);perspective:2400px;transition:transform .9s cubic-bezier(.5,0,.2,1)}
+#book{position:relative;width:calc(var(--pw)*2);height:calc(var(--pw)*10/7);perspective:2400px;transition:transform .9s cubic-bezier(.5,0,.2,1)}
 #book:before{content:"";position:absolute;left:2%;right:2%;bottom:-4%;height:6%;background:#000;filter:blur(18px);opacity:.65}
 .leaf{position:absolute;left:50%;top:0;width:50%;height:100%;transform-origin:left center;transform-style:preserve-3d;transition:transform .95s cubic-bezier(.55,.05,.25,1)}
 .leaf.nt{transition:none}
@@ -26,27 +26,23 @@ box-shadow:inset -1px 0 0 rgba(0,0,0,.12)}
 .shade{position:absolute;inset:0;background:linear-gradient(90deg,#05070f,rgba(5,7,15,.2));opacity:0;pointer-events:none;transition:opacity .5s}
 /* COVER: your image (upload cover.jpg next to index.html) */
 .face.cover{background:url(cover.jpg) center/100% 100% no-repeat,#0e1a3a;border-radius:3px 9px 9px 3px;box-shadow:0 0 0 1px #050a1c}
-/* INSIDE OF THE COVER: navy leather with gold frame, no diagonal lines */
-.face.endp{background:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2'/><feColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .22 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>"),linear-gradient(270deg,rgba(0,0,0,.4),rgba(0,0,0,0) 12%),radial-gradient(circle at 60% 30%,#16295a,#0b1634)}
-.nn{position:absolute;top:1.6%;font-style:italic;font-weight:600;font-size:calc(var(--pw)*.058);color:var(--gold)}
-.nn1{left:4%}
-.nn2{right:4%}
-/* FIRST PAGE */
-.qt{position:absolute;inset:0;color:var(--ink)}
-.qt .q{position:absolute;bottom:56%;left:12%;right:12%;text-align:center;font-style:italic;font-weight:600;font-size:calc(var(--pw)*.088);line-height:1.35}
-.qt .o{position:absolute;top:58%;width:100%;text-align:center;font-size:calc(var(--pw)*.2);line-height:1;color:#000;transform:translateY(-50%)}
-.qt .s{position:absolute;bottom:3.5%;right:4.5%;text-align:right;font-style:italic;font-weight:600;font-size:calc(var(--pw)*.055);line-height:1.2}
-.ph{position:absolute;left:8%;right:8%;top:8%;bottom:8%;padding:calc(var(--pw)*.02);background:#fff;box-shadow:0 2px 6px rgba(0,0,0,.3);outline:1px solid rgba(201,162,75,.85);outline-offset:3px}
+/* INSIDE OF THE COVER */
+.face.endp{background:url(inside.jpg) center/100% 100% no-repeat,#0b1634;border-radius:5px 0 0 5px}
+.face.quote{background:url(first.jpg) center/100% 100% no-repeat,#e9d5a8;border-radius:0 5px 5px 0}
+.face.pg{background:url(page.jpg) center/100% 100% no-repeat,#e9d5a8}
+.face.pg.back{background:url(pageL.jpg) center/100% 100% no-repeat,#e9d5a8}
+.ph{position:absolute;left:9.85%;top:6.2%;width:83.45%;height:86.8%;overflow:hidden;box-shadow:inset 0 0 0 1px rgba(60,40,15,.35)}
+.L .ph{left:6.7%}
 .ph img{width:100%;height:100%;object-fit:cover;display:block}
-.pn{position:absolute;bottom:2.4%;width:100%;text-align:center;font-style:italic;font-weight:600;font-size:calc(var(--pw)*.06);color:#000}
+.ph:after{content:"";position:absolute;inset:0;box-shadow:inset 0 0 14px rgba(60,35,10,.35);pointer-events:none}
 .plus{position:absolute;left:50%;top:50%;width:46%;aspect-ratio:1;transform:translate(-50%,-55%);background:none;border:0;padding:0;cursor:pointer;color:var(--ink)}
 .plus svg{width:100%;height:100%;overflow:visible}
 .plus path{fill:none;stroke:currentColor;stroke-width:3;stroke-linecap:round;stroke-dasharray:100;stroke-dashoffset:100;animation:dr 2.2s .4s forwards ease}
 .plus path+path{animation-delay:1.2s}
 @keyframes dr{to{stroke-dashoffset:0}}
 .hint{position:absolute;top:70%;width:100%;text-align:center;font-style:italic;font-weight:600;font-size:calc(var(--pw)*.07);color:#000}
-.edit{position:absolute;bottom:3%;right:7%;background:none;border:0;border-bottom:1px solid #000;font:italic 600 calc(var(--pw)*.07) 'Cormorant Garamond',Georgia,serif;color:#000;padding:2px 0;cursor:pointer}
-.L .edit{right:auto;left:7%}
+.edit{position:absolute;bottom:19%;right:12%;background:none;border:0;border-bottom:1px solid #000;font:italic 600 calc(var(--pw)*.07) 'Cormorant Garamond',Georgia,serif;color:#000;padding:2px 0;cursor:pointer}
+.L .edit{right:auto;left:12%}
 #tip{position:fixed;bottom:calc(env(safe-area-inset-bottom,0px) + 4vh);width:100%;text-align:center;color:var(--gold);font-style:italic;font-weight:600;font-size:18px;letter-spacing:.08em;opacity:.9;transition:opacity .5s;pointer-events:none}
 #tip.h{opacity:0}
 .ov{position:fixed;inset:0;background:rgba(3,5,12,.9);display:none;align-items:center;justify-content:center;z-index:9999;padding:16px}
@@ -82,7 +78,7 @@ input[type=text]{width:100%;font:inherit;font-size:20px;padding:10px;border:1px 
 
 <div class="ov" id="crop"><div class="card">
 <h2>Place the photo</h2>
-<div class="cw"><canvas id="cv" width="600" height="800"></canvas></div>
+<div class="cw"><canvas id="cv" width="600" height="892"></canvas></div>
 <input type="range" id="zm" min="1" max="4" step="0.01" value="1">
 <p class="small">Drag to move · pinch or slide to zoom</p>
 <div class="btns"><button class="bt" id="cx">Cancel</button><button class="bt p" id="ok">Confirm</button></div>
@@ -110,7 +106,7 @@ var firebaseConfig = {
 var book=document.getElementById('book'),tip=document.getElementById('tip');
 var photos=[],pages=[],leaves=[],cur=0,L=0,maxCur=0,PW=180,col=null,sig='',jump=false;
 
-function size(){PW=Math.min(innerWidth*.46,innerHeight*.74*.75,440);document.documentElement.style.setProperty('--pw',PW+'px')}
+function size(){PW=Math.min(innerWidth*.46,innerHeight*.74*.7,440);document.documentElement.style.setProperty('--pw',PW+'px')}
 size();addEventListener('resize',size);
 
 /* ---------- shared storage (Firebase Firestore) ---------- */
@@ -153,15 +149,14 @@ function buildPages(){
 }
 function html(p){
   if(p==='cover')return '';
-  if(p==='inside')return '<div class="nn nn1">18</div><div class="nn nn2">20</div>';
-  if(p==='quote')return '<div class="qt"><div class="q">“For The Love That Moves The Sun And The Other Stars”</div><div class="o">❦</div><div class="s">Your beloved,<br>Ahmed</div></div>';
+  if(p==='quote')return '';
   if(p==='plus')return '<button class="plus" aria-label="Add photos"><svg viewBox="0 0 100 100"><path pathLength="100" d="M50 10C49 30 51 70 50 90"/><path pathLength="100" d="M10 51C30 49 70 52 90 50"/></svg></button><div class="hint">add a memory</div><button class="edit">edit</button>';
-  if(p&&p.s)return '<div class="ph"><img alt="" src="'+p.s+'"></div><div class="pn">— '+p.n+' —</div>';
+  if(p&&p.s)return '<div class="ph"><img alt="" src="'+p.s+'"></div>';
   return '';
 }
 function face(p,back){
   var d=document.createElement('div');
-  d.className='face '+(back?'back L':'front')+(p==='cover'?' cover':'')+(p==='inside'?' endp':'');
+  d.className='face '+(back?'back L':'front')+(p==='cover'?' cover':p==='inside'?' endp':p==='quote'?' quote':' pg');
   d.innerHTML=html(p)+'<div class="shade"></div>';
   return d;
 }
@@ -239,17 +234,17 @@ document.getElementById('file').addEventListener('change',function(e){
 function next(){
   if(!queue.length){document.getElementById('crop').classList.remove('on');return}
   var f=queue.shift(),u=URL.createObjectURL(f),im=new Image();
-  im.onload=function(){img=im;base=Math.max(600/im.width,800/im.height);Z=1;ox=0;oy=0;zm.value=1;draw();document.getElementById('crop').classList.add('on');URL.revokeObjectURL(u)};
+  im.onload=function(){img=im;base=Math.max(600/im.width,892/im.height);Z=1;ox=0;oy=0;zm.value=1;draw();document.getElementById('crop').classList.add('on');URL.revokeObjectURL(u)};
   im.onerror=function(){next()};im.src=u;
 }
 function clampPos(){
-  var w=img.width*base*Z,h=img.height*base*Z,mx=(w-600)/2,my=(h-800)/2;
+  var w=img.width*base*Z,h=img.height*base*Z,mx=(w-600)/2,my=(h-892)/2;
   ox=Math.max(-mx,Math.min(mx,ox));oy=Math.max(-my,Math.min(my,oy));
 }
 function draw(){
   clampPos();var w=img.width*base*Z,h=img.height*base*Z;
-  cx.fillStyle='#fff';cx.fillRect(0,0,600,800);
-  cx.drawImage(img,(600-w)/2+ox,(800-h)/2+oy,w,h);
+  cx.fillStyle='#fff';cx.fillRect(0,0,600,892);
+  cx.drawImage(img,(600-w)/2+ox,(892-h)/2+oy,w,h);
 }
 zm.addEventListener('input',function(){Z=+zm.value;draw()});
 var ptrs={},pd=0;
