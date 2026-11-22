@@ -92,23 +92,9 @@ input[type=text]{width:100%;font:inherit;font-size:18px;padding:10px;border:1px 
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
 <script>
-// Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
 
-// Your web app's Firebase configuration
-const firebaseConfig = {
-  apiKey: "AIzaSyCxd2P5524mOaQiSfAdH466F_cVQ39lxDQ",
-  authDomain: "memory-book-380d5.firebaseapp.com",
-  projectId: "memory-book-380d5",
-  storageBucket: "memory-book-380d5.firebasestorage.app",
-  messagingSenderId: "554718255642",
-  appId: "1:554718255642:web:7fb196ac2fc2cf20f14fa3"
-};
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
+/* ============ 1. PASTE YOUR FIREBASE CONFIG HERE ============ */
 var firebaseConfig = {
   apiKey: "AIzaSyCxd2P5524mOaQiSfAdH466F_cVQ39lxDQ",
   authDomain: "memory-book-380d5.firebaseapp.com",
@@ -117,7 +103,6 @@ var firebaseConfig = {
   messagingSenderId: "554718255642",
   appId: "1:554718255642:web:7fb196ac2fc2cf20f14fa3"
 };
-/* ============================================================ */
 
 var book=document.getElementById('book'),tip=document.getElementById('tip');
 var photos=[],pages=[],leaves=[],cur=0,L=0,maxCur=0,PW=180,col=null,sig='',jump=false;
