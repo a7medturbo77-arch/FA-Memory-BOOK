@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Our Memory Book</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;1,500&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
+<style>
+:root{--pw:180px;--ink:#3b2a1d;--gold:#d4af5f;--navy:#1b2f5e}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;margin:0;overflow:hidden;background:radial-gradient(ellipse at center,#4d372a 0%,#1c130e 85%);color:var(--ink);font-family:'IM Fell English','Cormorant Garamond',Georgia,serif}
+body{padding:env(safe-area-inset-top,0px) 0 env(safe-area-inset-bottom,0px)}
+#stage{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;touch-action:none;user-select:none;-webkit-user-select:none}
+#book{position:relative;width:calc(var(--pw)*2);height:calc(var(--pw)*4/3);perspective:2400px;transition:transform .9s cubic-bezier(.5,0,.2,1)}
+#book:before{content:"";position:absolute;left:2%;right:2%;bottom:-4%;height:6%;background:#000;filter:blur(18px);opacity:.55}
+.leaf{position:absolute;left:50%;top:0;width:50%;height:100%;transform-origin:left center;transform-style:preserve-3d;transition:transform .95s cubic-bezier(.55,.05,.25,1)}
+.leaf.nt{transition:none}
+.face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;overflow:hidden;
+background:linear-gradient(90deg,rgba(60,30,10,.28),rgba(60,30,10,0) 9%),radial-gradient(circle at 30% 20%,#f7ecd0,#efe0bb 70%,#e6d3a6);
+box-shadow:inset -1px 0 0 rgba(0,0,0,.12)}
+.front{border-radius:0 5px 5px 0}
+.back{transform:rotateY(180deg);border-radius:5px 0 0 5px;background:linear-gradient(270deg,rgba(60,30,10,.28),rgba(60,30,10,0) 9%),radial-gradient(circle at 70% 20%,#f7ecd0,#efe0bb 70%,#e6d3a6)}
+.shade{position:absolute;inset:0;background:linear-gradient(90deg,#1a0d05,rgba(26,13,5,.2));opacity:0;pointer-events:none;transition:opacity .5s}
+/* NAVY COVER – change these colours to restyle */
+.face.cover{background:linear-gradient(90deg,rgba(0,0,0,.45),rgba(0,0,0,0) 7%),radial-gradient(circle at 40% 30%,#2a4685,#101d42 80%);box-shadow:0 0 0 1px #060c1f,inset 0 0 30px rgba(0,0,0,.5);border-radius:3px 9px 9px 3px}
+.face.endp{background:repeating-linear-gradient(45deg,rgba(212,175,95,.12) 0 2px,transparent 2px 9px),radial-gradient(circle,#1f3770,#0d1936)}
+.cin{position:absolute;inset:5%;border:2px solid var(--gold);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;color:var(--gold);text-shadow:0 1px 0 rgba(0,0,0,.6);outline:1px solid var(--gold);outline-offset:-7px;padding:8%}
+.cin h1{font-weight:400;font-size:calc(var(--pw)*.15);line-height:1.15;margin:.3em 0;letter-spacing:.06em;text-transform:uppercase}
+.cin .o{font-size:calc(var(--pw)*.17)}
+.cin .r{width:50%;height:1px;background:var(--gold);margin:.5em 0}
+.cin p{font-style:italic;margin:0;font-size:calc(var(--pw)*.075)}
+.qt{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:rgba(90,60,30,.35);font-size:calc(var(--pw)*.12)}
+.ph{position:absolute;left:8%;right:8%;top:8%;bottom:8%;padding:calc(var(--pw)*.02);background:#fbf5e4;box-shadow:0 2px 6px rgba(60,30,10,.35)}
+.ph img{width:100%;height:100%;object-fit:cover;display:block;filter:sepia(.12)}
+.pn{position:absolute;bottom:2.4%;width:100%;text-align:center;font-style:italic;font-size:calc(var(--pw)*.055);opacity:.6}
+.plus{position:absolute;left:50%;top:50%;width:46%;aspect-ratio:1;transform:translate(-50%,-55%);background:none;border:0;padding:0;cursor:pointer;color:var(--ink)}
+.plus svg{width:100%;height:100%;overflow:visible}
+.plus path{fill:none;stroke:currentColor;stroke-width:3;stroke-linecap:round;stroke-dasharray:100;stroke-dashoffset:100;animation:dr 2.2s .4s forwards ease}
+.plus path+path{animation-delay:1.2s}
+@keyframes dr{to{stroke-dashoffset:0}}
+.hint{position:absolute;top:70%;width:100%;text-align:center;font-style:italic;font-size:calc(var(--pw)*.06);opacity:.55}
+.edit{position:absolute;bottom:3%;right:7%;background:none;border:0;border-bottom:1px solid currentColor;font:italic calc(var(--pw)*.065) 'IM Fell English',Georgia,serif;color:var(--ink);opacity:.7;padding:2px 0;cursor:pointer}
+.L .edit{right:auto;left:7%}
+#tip{position:fixed;bottom:calc(env(safe-area-inset-bottom,0px) + 4vh);width:100%;text-align:center;color:#d9c299;font-style:italic;letter-spacing:.08em;opacity:.8;transition:opacity .5s;pointer-events:none}
+#tip.h{opacity:0}
+.ov{position:fixed;inset:0;background:rgba(15,8,4,.85);display:none;align-items:center;justify-content:center;z-index:9999;padding:16px}
+.ov.on{display:flex}
+.card{background:#f3e6c8;border-radius:6px;padding:18px;width:min(92vw,380px);max-height:90vh;overflow:auto;box-shadow:0 10px 40px #000;text-align:center}
+.card h2{margin:0 0 10px;font-weight:400;font-size:22px}
+.cw{background:#efe0bb;padding:8%;box-shadow:inset 0 0 0 1px rgba(0,0,0,.1)}
+canvas{width:100%;display:block;touch-action:none;background:#fbf5e4;box-shadow:0 2px 6px rgba(60,30,10,.4)}
+input[type=range]{width:90%;margin:14px 0 6px;accent-color:var(--navy)}
+input[type=text]{width:100%;font:inherit;font-size:18px;padding:10px;border:1px solid var(--navy);border-radius:4px;background:#fbf5e4;text-align:center;color:var(--ink)}
+.btns{display:flex;gap:10px;justify-content:center;margin-top:12px}
+.bt{font:inherit;font-size:17px;padding:9px 20px;border-radius:4px;border:1px solid var(--navy);background:none;color:var(--navy);cursor:pointer}
+.bt.p{background:var(--navy);color:#f3e6c8}
+.bt:disabled{opacity:.5}
+.row{display:flex;align-items:center;gap:10px;padding:7px 0;border-bottom:1px solid rgba(60,30,10,.2);text-align:left}
+.row img{width:36px;height:48px;object-fit:cover}
+.row span{flex:1}
+.row button{font-size:18px;width:36px;height:36px;border:1px solid rgba(60,30,10,.4);background:none;border-radius:4px;color:var(--ink)}
+.small{font-size:14px;opacity:.75;margin:8px 0 0;font-style:italic}
+</style>
+</head>
+<body>
+<div id="stage"><div id="book"></div></div>
+<div id="tip">swipe to open ›</div>
+<input type="file" id="file" accept="image/*" multiple hidden>
+
+<div class="ov" id="gate"><div class="card">
+<h2>Our secret code</h2>
+<input type="text" id="code" placeholder="e.g. rose-and-ivy-1907" autocapitalize="off" autocomplete="off" autocorrect="off">
+<p class="small" id="gmsg">Type the same code on both phones. Anyone who knows it can open your book, so keep it private.</p>
+<div class="btns"><button class="bt p" id="enter">Open the book</button></div>
+</div></div>
+
+<div class="ov" id="crop"><div class="card">
+<h2>Place the photo on the page</h2>
+<div class="cw"><canvas id="cv" width="600" height="800"></canvas></div>
+<input type="range" id="zm" min="1" max="4" step="0.01" value="1">
+<p class="small">Drag to move · pinch or slide to zoom</p>
+<div class="btns"><button class="bt" id="cx">Cancel</button><button class="bt p" id="ok">Confirm</button></div>
+</div></div>
+
+<div class="ov" id="ed"><div class="card">
+<h2>Edit pages</h2>
+<div id="list"></div>
+<p class="small" id="none" style="display:none">No photo pages yet.</p>
+<div class="btns"><button class="bt p" id="done">Done</button></div>
+</div></div>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<script>
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+const firebaseConfig = {
+  apiKey: "AIzaSyCxd2P5524mOaQiSfAdH466F_cVQ39lxDQ",
+  authDomain: "memory-book-380d5.firebaseapp.com",
+  projectId: "memory-book-380d5",
+  storageBucket: "memory-book-380d5.firebasestorage.app",
+  messagingSenderId: "554718255642",
+  appId: "1:554718255642:web:7fb196ac2fc2cf20f14fa3"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+var firebaseConfig = {
+  apiKey: "PASTE_HERE",
+  authDomain: "PASTE_HERE",
+  projectId: "PASTE_HERE",
+  storageBucket: "PASTE_HERE",
+  messagingSenderId: "PASTE_HERE",
+  appId: "PASTE_HERE"
+};
+/* ============================================================ */
+
+var book=document.getElementById('book'),tip=document.getElementById('tip');
+var photos=[],pages=[],leaves=[],cur=0,L=0,maxCur=0,PW=180,col=null,sig='',jump=false;
+
+function size(){PW=Math.min(innerWidth*.46,innerHeight*.74*.75,440);document.documentElement.style.setProperty('--pw',PW+'px')}
+size();addEventListener('resize',size);
+
+/* ---------- shared storage (Firebase Firestore) ---------- */
+function startFirebase(code){
+  if(firebaseConfig.apiKey==='PASTE_HERE'){document.getElementById('gate').classList.add('on');document.getElementById('gmsg').textContent='Firebase is not set up yet: paste your config into index.html.';return}
+  try{
+    if(!firebase.apps.length)firebase.initializeApp(firebaseConfig);
+    col=firebase.firestore().collection('books').doc(code).collection('photos');
+    col.orderBy('order').onSnapshot(function(snap){
+      photos=snap.docs.map(function(d){return{id:d.id,src:d.data().src}});
+      var s=photos.map(function(p){return p.id}).join(',');
+      if(s===sig&&!jump&&pages.length)return;
+      sig=s;buildPages();
+      if(jump){cur=Math.min(maxCur,Math.ceil((2+photos.length)/2));jump=false}
+      cur=Math.min(cur,maxCur);render();
+      if(document.getElementById('ed').classList.contains('on'))listEdit();
+    },function(err){alert('Could not reach the shared album: '+err.message)});
+  }catch(e){alert('Setup problem: '+e.message)}
+}
+function cleanCode(v){return (v||'').toLowerCase().replace(/[^a-z0-9_-]/g,'')}
+(function(){
+  var c='';try{c=localStorage.getItem('bookcode')||''}catch(e){}
+  buildPages();render();
+  if(c.length>=6)startFirebase(c);else document.getElementById('gate').classList.add('on');
+})();
+document.getElementById('enter').onclick=function(){
+  var c=cleanCode(document.getElementById('code').value);
+  if(c.length<6){document.getElementById('gmsg').textContent='Please use at least 6 characters (letters, numbers, - or _).';return}
+  try{localStorage.setItem('bookcode',c)}catch(e){}
+  document.getElementById('gate').classList.remove('on');startFirebase(c);
+};
+
+/* ---------- pages ---------- */
+function buildPages(){
+  pages=['cover','inside','quote'];
+  photos.forEach(function(o,i){pages.push({s:o.src,n:i+1})});
+  pages.push('plus');
+  var pi=pages.length-1;
+  if(pi%2){pages.push('blank','blank')}else{pages.push('blank')}
+  maxCur=Math.ceil(pi/2);
+}
+function html(p){
+  if(p==='cover')return '<div class="cin"><div class="o">❦</div><h1>Our Memory Book</h1><div class="r"></div><p>a chronicle of us</p></div>';
+  if(p==='quote')return '<div class="qt">❦</div>';
+  if(p==='plus')return '<button class="plus" aria-label="Add photos"><svg viewBox="0 0 100 100"><path pathLength="100" d="M50 10C49 30 51 70 50 90"/><path pathLength="100" d="M10 51C30 49 70 52 90 50"/></svg></button><div class="hint">add a memory</div><button class="edit">edit</button>';
+  if(p&&p.s)return '<div class="ph"><img alt="" src="'+p.s+'"></div><div class="pn">— '+p.n+' —</div>';
+  return '';
+}
+function face(p,back){
+  var d=document.createElement('div');
+  d.className='face '+(back?'back L':'front')+(p==='cover'?' cover':'')+(p==='inside'?' endp':'');
+  d.innerHTML=html(p)+'<div class="shade"></div>';
+  return d;
+}
+function render(){
+  book.innerHTML='';leaves=[];L=pages.length/2;
+  for(var k=0;k<L;k++){
+    var l=document.createElement('div');l.className='leaf';
+    l.appendChild(face(pages[2*k],false));l.appendChild(face(pages[2*k+1],true));
+    book.appendChild(l);leaves.push(l);
+  }
+  apply(null,true);
+}
+function zOf(i){return i<cur?i:L-i}
+function apply(moving,instant){
+  leaves.forEach(function(l,i){
+    if(instant)l.classList.add('nt');
+    l.style.transform=i<cur?'rotateY(-180deg)':'';
+    l.querySelectorAll('.shade').forEach(function(s){s.style.opacity=0});
+    if(l===moving){l.style.zIndex=L+5;setTimeout(function(){l.style.zIndex=zOf(i)},950)}else l.style.zIndex=zOf(i);
+  });
+  book.style.transition=instant?'none':'';
+  book.style.transform=cur===0?'translateX(-25%)':'';
+  if(instant)requestAnimationFrame(function(){leaves.forEach(function(l){l.classList.remove('nt')});book.style.transition=''});
+  tip.classList.toggle('h',cur!==0);
+}
+function go(dir){
+  if(dir>0&&cur<maxCur){cur++;apply(leaves[cur-1])}
+  else if(dir<0&&cur>0){cur--;apply(leaves[cur])}
+}
+
+/* ---------- swipe ---------- */
+var d=null;
+document.getElementById('stage').addEventListener('pointerdown',function(e){
+  if(e.target.closest('button'))return;
+  d={x:e.clientX,moved:false,leaf:null,dir:0,p:0};
+});
+addEventListener('pointermove',function(e){
+  if(!d)return;var dx=e.clientX-d.x;
+  if(!d.moved&&Math.abs(dx)>8){
+    d.moved=true;d.dir=dx<0?1:-1;
+    if(d.dir>0&&cur<maxCur)d.leaf=leaves[cur];
+    else if(d.dir<0&&cur>0)d.leaf=leaves[cur-1];
+    if(d.leaf){d.leaf.classList.add('nt');d.leaf.style.zIndex=L+5}
+  }
+  if(d.leaf){
+    d.p=Math.min(1,Math.abs(dx)/(PW*1.4));
+    var a=d.dir>0?-180*d.p:-180+180*d.p;
+    d.leaf.style.transform='rotateY('+a+'deg)';
+    var sh=Math.sin(Math.abs(a)*Math.PI/180)*.45;
+    d.leaf.querySelectorAll('.shade').forEach(function(s){s.style.transition='none';s.style.opacity=sh});
+  }
+});
+function end(e){
+  if(!d)return;var s=d;d=null;
+  if(!s.moved){var r=book.getBoundingClientRect();go(e.clientX>r.left+r.width/2?1:-1);return}
+  if(!s.leaf)return;
+  var l=s.leaf;l.classList.remove('nt');
+  l.querySelectorAll('.shade').forEach(function(x){x.style.transition=''});
+  if(s.p>.28){cur+=s.dir}
+  apply(l);
+}
+addEventListener('pointerup',end);
+addEventListener('pointercancel',function(){if(d){var l=d.leaf;d=null;if(l){l.classList.remove('nt');apply(l)}}});
+
+book.addEventListener('click',function(e){
+  if(e.target.closest('.plus')){if(col)document.getElementById('file').click();else document.getElementById('gate').classList.add('on')}
+  else if(e.target.closest('.edit'))openEdit();
+});
+
+/* ---------- placing a photo ---------- */
+var queue=[],img=null,Z=1,ox=0,oy=0,base=1,cvs=document.getElementById('cv'),cx=cvs.getContext('2d'),zm=document.getElementById('zm');
+document.getElementById('file').addEventListener('change',function(e){
+  queue=Array.prototype.slice.call(e.target.files);e.target.value='';next();
+});
+function next(){
+  if(!queue.length){document.getElementById('crop').classList.remove('on');return}
+  var f=queue.shift(),u=URL.createObjectURL(f),im=new Image();
+  im.onload=function(){img=im;base=Math.max(600/im.width,800/im.height);Z=1;ox=0;oy=0;zm.value=1;draw();document.getElementById('crop').classList.add('on');URL.revokeObjectURL(u)};
+  im.onerror=function(){next()};im.src=u;
+}
+function clampPos(){
+  var w=img.width*base*Z,h=img.height*base*Z,mx=(w-600)/2,my=(h-800)/2;
+  ox=Math.max(-mx,Math.min(mx,ox));oy=Math.max(-my,Math.min(my,oy));
+}
+function draw(){
+  clampPos();var w=img.width*base*Z,h=img.height*base*Z;
+  cx.fillStyle='#fbf5e4';cx.fillRect(0,0,600,800);
+  cx.drawImage(img,(600-w)/2+ox,(800-h)/2+oy,w,h);
+}
+zm.addEventListener('input',function(){Z=+zm.value;draw()});
+var ptrs={},pd=0;
+cvs.addEventListener('pointerdown',function(e){cvs.setPointerCapture(e.pointerId);ptrs[e.pointerId]=[e.clientX,e.clientY];pd=0});
+cvs.addEventListener('pointermove',function(e){
+  var p=ptrs[e.pointerId];if(!p)return;var k=600/cvs.getBoundingClientRect().width,ids=Object.keys(ptrs);
+  if(ids.length===1){ox+=(e.clientX-p[0])*k;oy+=(e.clientY-p[1])*k;ptrs[e.pointerId]=[e.clientX,e.clientY]}
+  else{
+    ptrs[e.pointerId]=[e.clientX,e.clientY];var a=ptrs[ids[0]],b=ptrs[ids[1]],dist=Math.hypot(a[0]-b[0],a[1]-b[1]);
+    if(pd){Z=Math.max(1,Math.min(4,Z*dist/pd));zm.value=Z}pd=dist;
+  }
+  draw();
+});
+function up(e){delete ptrs[e.pointerId];pd=0}
+cvs.addEventListener('pointerup',up);cvs.addEventListener('pointercancel',up);
+document.getElementById('ok').onclick=function(){
+  var b=this;b.disabled=true;b.textContent='Saving…';
+  col.add({src:cvs.toDataURL('image/jpeg',.8),order:Date.now()}).then(function(){jump=true}).catch(function(e){alert('Could not save: '+e.message)}).then(function(){b.disabled=false;b.textContent='Confirm';next()});
+};
+document.getElementById('cx').onclick=function(){queue=[];next()};
+
+/* ---------- edit pages ---------- */
+function openEdit(){listEdit();document.getElementById('ed').classList.add('on')}
+function reorder(arr){
+  var batch=firebase.firestore().batch();
+  arr.forEach(function(p,i){batch.update(col.doc(p.id),{order:i})});
+  return batch.commit().catch(function(e){alert('Could not save: '+e.message)});
+}
+function listEdit(){
+  var box=document.getElementById('list');box.innerHTML='';
+  document.getElementById('none').style.display=photos.length?'none':'block';
+  photos.forEach(function(o,i){
+    var r=document.createElement('div');r.className='row';
+    r.innerHTML='<img alt="" src="'+o.src+'"><span>Page '+(i+1)+'</span><button data-a="u">↑</button><button data-a="d">↓</button><button data-a="x">✕</button>';
+    r.onclick=function(e){
+      var a=e.target.getAttribute('data-a');if(!a)return;
+      var arr=photos.slice();
+      if(a==='x'){if(!confirm('Remove this page for both of you?'))return;col.doc(o.id).delete().catch(function(er){alert(er.message)});return}
+      if(a==='u'&&i>0){var t=arr[i-1];arr[i-1]=arr[i];arr[i]=t;reorder(arr)}
+      if(a==='d'&&i<arr.length-1){var t2=arr[i+1];arr[i+1]=arr[i];arr[i]=t2;reorder(arr)}
+    };
+    box.appendChild(r);
+  });
+}
+document.getElementById('done').onclick=function(){document.getElementById('ed').classList.remove('on')};
+</script>
+</body>
+</html>
