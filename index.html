@@ -6,36 +6,40 @@
 <title>Our Memory Book</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;1,500&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
 <style>
-:root{--pw:180px;--ink:#3b2a1d;--gold:#d4af5f;--navy:#1b2f5e}
+:root{--pw:180px;--ink:#2b2b2b;--gold:#d4af5f;--navy:#1b2f5e;--paper:#f7f4ec}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html,body{height:100%;margin:0;overflow:hidden;background:radial-gradient(ellipse at center,#4d372a 0%,#1c130e 85%);color:var(--ink);font-family:'IM Fell English','Cormorant Garamond',Georgia,serif}
+html,body{height:100%;margin:0;overflow:hidden;background:radial-gradient(ellipse at center,#2c2f36 0%,#0d0e11 85%);color:var(--ink);font-family:'IM Fell English','Cormorant Garamond',Georgia,serif}
 body{padding:env(safe-area-inset-top,0px) 0 env(safe-area-inset-bottom,0px)}
 #stage{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;touch-action:none;user-select:none;-webkit-user-select:none}
 #book{position:relative;width:calc(var(--pw)*2);height:calc(var(--pw)*4/3);perspective:2400px;transition:transform .9s cubic-bezier(.5,0,.2,1)}
-#book:before{content:"";position:absolute;left:2%;right:2%;bottom:-4%;height:6%;background:#000;filter:blur(18px);opacity:.55}
+#book:before{content:"";position:absolute;left:2%;right:2%;bottom:-4%;height:6%;background:#000;filter:blur(18px);opacity:.6}
 .leaf{position:absolute;left:50%;top:0;width:50%;height:100%;transform-origin:left center;transform-style:preserve-3d;transition:transform .95s cubic-bezier(.55,.05,.25,1)}
 .leaf.nt{transition:none}
 .face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;overflow:hidden;
-background:linear-gradient(90deg,rgba(60,30,10,.28),rgba(60,30,10,0) 9%),radial-gradient(circle at 30% 20%,#f7ecd0,#efe0bb 70%,#e6d3a6);
+background:linear-gradient(90deg,rgba(0,0,0,.16),rgba(0,0,0,0) 9%),radial-gradient(circle at 30% 20%,#fffdf8,#f7f4ec 70%,#ece7da);
 box-shadow:inset -1px 0 0 rgba(0,0,0,.12)}
 .front{border-radius:0 5px 5px 0}
-.back{transform:rotateY(180deg);border-radius:5px 0 0 5px;background:linear-gradient(270deg,rgba(60,30,10,.28),rgba(60,30,10,0) 9%),radial-gradient(circle at 70% 20%,#f7ecd0,#efe0bb 70%,#e6d3a6)}
-.shade{position:absolute;inset:0;background:linear-gradient(90deg,#1a0d05,rgba(26,13,5,.2));opacity:0;pointer-events:none;transition:opacity .5s}
-/* NAVY COVER – change these colours to restyle */
+.back{transform:rotateY(180deg);border-radius:5px 0 0 5px;background:linear-gradient(270deg,rgba(0,0,0,.16),rgba(0,0,0,0) 9%),radial-gradient(circle at 70% 20%,#fffdf8,#f7f4ec 70%,#ece7da)}
+.shade{position:absolute;inset:0;background:linear-gradient(90deg,#0a0a0c,rgba(10,10,12,.2));opacity:0;pointer-events:none;transition:opacity .5s}
+/* NAVY COVER */
 .face.cover{background:linear-gradient(90deg,rgba(0,0,0,.45),rgba(0,0,0,0) 7%),radial-gradient(circle at 40% 30%,#2a4685,#101d42 80%);box-shadow:0 0 0 1px #060c1f,inset 0 0 30px rgba(0,0,0,.5);border-radius:3px 9px 9px 3px}
-.face.endp{background:repeating-linear-gradient(45deg,rgba(212,175,95,.12) 0 2px,transparent 2px 9px),radial-gradient(circle,#1f3770,#0d1936)}
+/* inside of the cover: plain navy, no lines */
+.face.endp{background:linear-gradient(270deg,rgba(0,0,0,.35),rgba(0,0,0,0) 10%),radial-gradient(circle at 60% 30%,#1f3770,#0d1936)}
 .cin{position:absolute;inset:5%;border:2px solid var(--gold);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;color:var(--gold);text-shadow:0 1px 0 rgba(0,0,0,.6);outline:1px solid var(--gold);outline-offset:-7px;padding:8%}
 .cin h1{font-weight:400;font-size:calc(var(--pw)*.15);line-height:1.15;margin:.3em 0;letter-spacing:.06em;text-transform:uppercase}
 .cin .o{font-size:calc(var(--pw)*.17)}
 .cin .r{width:50%;height:1px;background:var(--gold);margin:.5em 0}
 .cin p{font-style:italic;margin:0;font-size:calc(var(--pw)*.075)}
-.qt{position:absolute;inset:0;color:#4a3426}
-.qt .q{position:absolute;top:14%;left:12%;right:12%;text-align:center;font-style:italic;font-size:calc(var(--pw)*.085);line-height:1.4}
-.qt .a{display:block;margin-top:.6em;font-size:.7em;font-style:normal;letter-spacing:.08em;opacity:.7}
-.qt .o{position:absolute;top:58%;width:100%;text-align:center;font-size:calc(var(--pw)*.2);color:rgba(90,60,30,.4);transform:translateY(-50%)}
-.qt .s{position:absolute;bottom:8%;right:9%;text-align:right;font-style:italic;font-size:calc(var(--pw)*.05)}
-.ph{position:absolute;left:8%;right:8%;top:8%;bottom:8%;padding:calc(var(--pw)*.02);background:#fbf5e4;box-shadow:0 2px 6px rgba(60,30,10,.35)}
-.ph img{width:100%;height:100%;object-fit:cover;display:block;filter:sepia(.12)}
+/* first page: quote, ornament, signature, corner numbers */
+.qt{position:absolute;inset:0;color:#2b2b2b}
+.qt .q{position:absolute;top:30%;left:12%;right:12%;text-align:center;font-style:italic;font-size:calc(var(--pw)*.085);line-height:1.4}
+.qt .o{position:absolute;top:58%;width:100%;text-align:center;font-size:calc(var(--pw)*.2);color:rgba(43,43,43,.45);transform:translateY(-50%)}
+.qt .s{position:absolute;bottom:3.5%;right:4.5%;text-align:right;font-style:italic;font-size:calc(var(--pw)*.05);line-height:1.25}
+.qt .n{position:absolute;top:3.5%;font-style:italic;font-size:calc(var(--pw)*.05)}
+.qt .n1{left:4.5%}
+.qt .n2{right:4.5%}
+.ph{position:absolute;left:8%;right:8%;top:8%;bottom:8%;padding:calc(var(--pw)*.02);background:#fff;box-shadow:0 2px 6px rgba(0,0,0,.3)}
+.ph img{width:100%;height:100%;object-fit:cover;display:block}
 .pn{position:absolute;bottom:2.4%;width:100%;text-align:center;font-style:italic;font-size:calc(var(--pw)*.055);opacity:.6}
 .plus{position:absolute;left:50%;top:50%;width:46%;aspect-ratio:1;transform:translate(-50%,-55%);background:none;border:0;padding:0;cursor:pointer;color:var(--ink)}
 .plus svg{width:100%;height:100%;overflow:visible}
@@ -45,24 +49,24 @@ box-shadow:inset -1px 0 0 rgba(0,0,0,.12)}
 .hint{position:absolute;top:70%;width:100%;text-align:center;font-style:italic;font-size:calc(var(--pw)*.06);opacity:.55}
 .edit{position:absolute;bottom:3%;right:7%;background:none;border:0;border-bottom:1px solid currentColor;font:italic calc(var(--pw)*.065) 'IM Fell English',Georgia,serif;color:var(--ink);opacity:.7;padding:2px 0;cursor:pointer}
 .L .edit{right:auto;left:7%}
-#tip{position:fixed;bottom:calc(env(safe-area-inset-bottom,0px) + 4vh);width:100%;text-align:center;color:#d9c299;font-style:italic;letter-spacing:.08em;opacity:.8;transition:opacity .5s;pointer-events:none}
+#tip{position:fixed;bottom:calc(env(safe-area-inset-bottom,0px) + 4vh);width:100%;text-align:center;color:#b9bcc4;font-style:italic;letter-spacing:.08em;opacity:.8;transition:opacity .5s;pointer-events:none}
 #tip.h{opacity:0}
-.ov{position:fixed;inset:0;background:rgba(15,8,4,.85);display:none;align-items:center;justify-content:center;z-index:9999;padding:16px}
+.ov{position:fixed;inset:0;background:rgba(5,5,8,.88);display:none;align-items:center;justify-content:center;z-index:9999;padding:16px}
 .ov.on{display:flex}
-.card{background:#f3e6c8;border-radius:6px;padding:18px;width:min(92vw,380px);max-height:90vh;overflow:auto;box-shadow:0 10px 40px #000;text-align:center}
+.card{background:var(--paper);border-radius:6px;padding:18px;width:min(92vw,380px);max-height:90vh;overflow:auto;box-shadow:0 10px 40px #000;text-align:center}
 .card h2{margin:0 0 10px;font-weight:400;font-size:22px}
-.cw{background:#efe0bb;padding:8%;box-shadow:inset 0 0 0 1px rgba(0,0,0,.1)}
-canvas{width:100%;display:block;touch-action:none;background:#fbf5e4;box-shadow:0 2px 6px rgba(60,30,10,.4)}
+.cw{background:#ece8dc;padding:8%;box-shadow:inset 0 0 0 1px rgba(0,0,0,.1)}
+canvas{width:100%;display:block;touch-action:none;background:#fff;box-shadow:0 2px 6px rgba(0,0,0,.35)}
 input[type=range]{width:90%;margin:14px 0 6px;accent-color:var(--navy)}
-input[type=text]{width:100%;font:inherit;font-size:18px;padding:10px;border:1px solid var(--navy);border-radius:4px;background:#fbf5e4;text-align:center;color:var(--ink)}
+input[type=text]{width:100%;font:inherit;font-size:18px;padding:10px;border:1px solid var(--navy);border-radius:4px;background:#fff;text-align:center;color:var(--ink)}
 .btns{display:flex;gap:10px;justify-content:center;margin-top:12px}
 .bt{font:inherit;font-size:17px;padding:9px 20px;border-radius:4px;border:1px solid var(--navy);background:none;color:var(--navy);cursor:pointer}
-.bt.p{background:var(--navy);color:#f3e6c8}
+.bt.p{background:var(--navy);color:#f7f4ec}
 .bt:disabled{opacity:.5}
-.row{display:flex;align-items:center;gap:10px;padding:7px 0;border-bottom:1px solid rgba(60,30,10,.2);text-align:left}
+.row{display:flex;align-items:center;gap:10px;padding:7px 0;border-bottom:1px solid rgba(0,0,0,.15);text-align:left}
 .row img{width:36px;height:48px;object-fit:cover}
 .row span{flex:1}
-.row button{font-size:18px;width:36px;height:36px;border:1px solid rgba(60,30,10,.4);background:none;border-radius:4px;color:var(--ink)}
+.row button{font-size:18px;width:36px;height:36px;border:1px solid rgba(0,0,0,.35);background:none;border-radius:4px;color:var(--ink)}
 .small{font-size:14px;opacity:.75;margin:8px 0 0;font-style:italic}
 </style>
 </head>
@@ -96,9 +100,6 @@ input[type=text]{width:100%;font:inherit;font-size:18px;padding:10px;border:1px 
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
 <script>
-
-
-/* ============ 1. PASTE YOUR FIREBASE CONFIG HERE ============ */
 var firebaseConfig = {
   apiKey: "AIzaSyCxd2P5524mOaQiSfAdH466F_cVQ39lxDQ",
   authDomain: "memory-book-380d5.firebaseapp.com",
@@ -116,7 +117,6 @@ size();addEventListener('resize',size);
 
 /* ---------- shared storage (Firebase Firestore) ---------- */
 function startFirebase(code){
-  if(firebaseConfig.apiKey==='PASTE_HERE'){document.getElementById('gate').classList.add('on');document.getElementById('gmsg').textContent='Firebase is not set up yet: paste your config into index.html.';return}
   try{
     if(!firebase.apps.length)firebase.initializeApp(firebaseConfig);
     col=firebase.firestore().collection('books').doc(code).collection('photos');
@@ -155,7 +155,7 @@ function buildPages(){
 }
 function html(p){
   if(p==='cover')return '<div class="cin"><div class="o">❦</div><h1>Our Memory Book</h1><div class="r"></div><p>a chronicle of us</p></div>';
-  if(p==='quote')return '<div class="qt"><div class="q">“For The Love That Moves The Sun And The Other Stars”</div><div class="o">❦</div><div class="s">Your beloved,<br>Ahmed</div></div>';
+  if(p==='quote')return '<div class="qt"><div class="n n1">18</div><div class="n n2">20</div><div class="q">“For The Love That Moves The Sun And The Other Stars”</div><div class="o">❦</div><div class="s">Your beloved,<br>Ahmed</div></div>';
   if(p==='plus')return '<button class="plus" aria-label="Add photos"><svg viewBox="0 0 100 100"><path pathLength="100" d="M50 10C49 30 51 70 50 90"/><path pathLength="100" d="M10 51C30 49 70 52 90 50"/></svg></button><div class="hint">add a memory</div><button class="edit">edit</button>';
   if(p&&p.s)return '<div class="ph"><img alt="" src="'+p.s+'"></div><div class="pn">— '+p.n+' —</div>';
   return '';
@@ -249,7 +249,7 @@ function clampPos(){
 }
 function draw(){
   clampPos();var w=img.width*base*Z,h=img.height*base*Z;
-  cx.fillStyle='#fbf5e4';cx.fillRect(0,0,600,800);
+  cx.fillStyle='#fff';cx.fillRect(0,0,600,800);
   cx.drawImage(img,(600-w)/2+ox,(800-h)/2+oy,w,h);
 }
 zm.addEventListener('input',function(){Z=+zm.value;draw()});
